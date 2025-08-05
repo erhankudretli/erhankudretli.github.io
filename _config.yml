@@ -28,8 +28,8 @@ url: ""
 github:
   username: erhankudretli # change to your GitHub username
 
-twitter:
-  username: twitter_username # change to your Twitter username
+# twitter:
+#   username: twitter_username # change to your Twitter username
 
 social:
   # Change to your full name.
@@ -59,7 +59,7 @@ webmaster_verifications:
 # Web Analytics Settings
 analytics:
   google:
-    id: # fill in your Google Analytics ID
+    id: 'G-77RLDX471B' # fill in your Google Analytics ID
   goatcounter:
     id: # fill in your GoatCounter ID
   umami:
@@ -76,6 +76,8 @@ analytics:
 # Page views settings
 pageviews:
   provider: # now only supports 'goatcounter'
+   goatcounter:
+    id: 'erhankudretli'
 
 # Prefer color scheme setting.
 #
