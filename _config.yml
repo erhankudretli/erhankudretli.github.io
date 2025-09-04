@@ -156,6 +156,9 @@ baseurl: ""
 
 plugins:
   - jekyll-include-cache
+  - jekyll-seo-tag
+  - jekyll-paginate
+  - jekyll-archives
 
 # ------------ The following options are not recommended to be modified ------------------
 
