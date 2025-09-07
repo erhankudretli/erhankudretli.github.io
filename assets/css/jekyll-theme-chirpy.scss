@@ -2,7 +2,7 @@
 ---
 
 /* prettier-ignore */
-@use 'main
+@use 'master
 {%- if jekyll.environment == 'production' -%}
   .bundle
 {%- endif -%}
