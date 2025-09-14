@@ -3,6 +3,7 @@ layout: post
 title: "How to Securely Handle Akamai Cache Purge in a CI/CD Pipeline"
 date: 2025-09-14
 categories: [cicd, akamai, devops,aws,terraform]
+image: /assets/img/view2.jpeg
 ---
 
 ## Background
