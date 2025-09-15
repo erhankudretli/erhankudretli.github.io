@@ -82,7 +82,7 @@ In GitHub Actions workflow:
     AKAMAI_ACCESS_TOKEN: ${{ secrets.AKAMAI_ACCESS_TOKEN }}
     AKAMAI_CLIENT_TOKEN: ${{ secrets.AKAMAI_CLIENT_TOKEN }}
     AKAMAI_CLIENT_SECRET: ${{ secrets.AKAMAI_CLIENT_SECRET }}
-    PURGE_URLS: "https://your-app.com/index.js,https://your-app.com/index.css"
+    PURGE_URLS: "https://your-app.com/index.js,https://your-app.com/index.css"    # update with URL to be purged
   run: python ./purge.py
 ```
 
@@ -109,7 +109,7 @@ import requests
 from akamai.edgegrid import EdgeGridAuth
 
 def lambda_handler(event, context):
-    baseurl = "https://example.luna.akamaiapis.net"  # anonymized Akamai host
+    baseurl = "https://example.luna.akamaiapis.net"  # update with your AKAMAI base URL
 
     session = requests.Session()
     session.auth = EdgeGridAuth(
@@ -162,7 +162,7 @@ This is a base config (Lambda implementation details are kept abstract here):
 ```hcl
 variable "lambda_function_name" {
   type        = string
-  description = "Name of the Lambda function to integrate with API Gateway"
+  description = "Lambda function to purge URL"
 }
 
 variable "api_name" {
@@ -173,6 +173,12 @@ variable "api_name" {
 variable "stage_name" {
   type        = string
   default     = "dev"
+}
+
+variable "custom_header" {
+  description = "Custom header name"
+  type        = string
+  default     = "X-API-Key"
 }
 ```
 
@@ -198,6 +204,9 @@ resource "aws_api_gateway_method" "post_method" {
   resource_id   = aws_api_gateway_resource.purge.id
   http_method   = "POST"
   authorization = "NONE"
+   request_parameters = {
+    "method.request.header.${var.custom_header}" = true
+  }
 }
 
 resource "aws_api_gateway_integration" "lambda_integration" {
@@ -226,8 +235,8 @@ resource "aws_lambda_permission" "api_gw" {
 
 ## Additional Resources
 
-* Akamai EdgeGrid official documentation: [Akamai EdgeGrid — Tech Docs](https://techdocs.akamai.com/developer/docs/edgegrid) ([TechDocs][1])
-* Akamai EdgeGrid for Python (GitHub repository): [AkamaiOPEN-edgegrid-python](https://github.com/akamai/AkamaiOPEN-edgegrid-python) ([GitHub][2])
+* Akamai EdgeGrid official documentation: [Akamai EdgeGrid — Tech Docs](https://techdocs.akamai.com/developer/docs/edgegrid)
+* Akamai EdgeGrid for Python (GitHub repository): [AkamaiOPEN-edgegrid-python](https://github.com/akamai/AkamaiOPEN-edgegrid-python)
 
 ---
 
@@ -237,9 +246,3 @@ resource "aws_lambda_permission" "api_gw" {
 * If you want a more scalable, safer architecture: go with **Lambda + API Gateway**.
 
 Both keep your secrets safe and allow cache purging to be automated after every deployment.
-
-```
-```
-
-[1]: https://techdocs.akamai.com/developer/docs/edgegrid "EdgeGrid"
-[2]: https://github.com/akamai/AkamaiOPEN-edgegrid-python "akamai/AkamaiOPEN-edgegrid-python"

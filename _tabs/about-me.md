@@ -41,7 +41,7 @@ Adaptable and collaborative team player, comfortable working in fast-paced, rapi
 ## 💼 Work Experience
 
 ### Cloud DevOps Engineer — *Merkle Technologies SA, Lausanne*  
-*08/2022 – Present*  
+*08/2022 – 09/2025*  
 - Designed and implemented a Contact Center solution integrating Salesforce Service Cloud Voice with Amazon Connect, orchestrating the end-to-end customer call journey.  
 - Developed a scalable DNS-based solution with Route 53/Route 53 Resolver to simplify Redshift endpoint access across multiple AWS accounts.  
 - Migrated traditional Redshift infrastructure to multi-account Redshift Serverless using a landing zone architecture.  
