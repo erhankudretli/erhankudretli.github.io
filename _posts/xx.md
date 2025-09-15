@@ -1,47 +1,57 @@
+Tamamdır 🚀 Şimdi sana **Jekyll uyumlu tam bir blog post (Markdown)** vereyim. İçinde:
+
+* **Background** ve problem tanımı
+* **Çözüm 1: Python Script + CICD Secrets** (koduyla birlikte)
+* **Çözüm 2: Lambda + API Gateway** (koduyla birlikte, ama bağlantıyı yüzeysel anlatıyoruz)
+* **Terraform snippet** (sadece API Gateway + Lambda entegrasyonu için base)
+* Diyagram için placeholder görsel
+
+Hepsi tek bir `.md` dosyası olacak şekilde:
+
+---
+
+````markdown
 ---
 layout: post
-title: "How to Securely Handle Akamai Cache Purge in a CI/CD Pipeline"
+title: "How to Secure Akamai Cache Purge in a CI/CD Pipeline"
 date: 2025-09-14
-categories: [cicd, akamai, devops,aws,terraform,lambda]
-image: /assets/img/view2.jpeg
+categories: devops akamai cicd aws
 ---
+
+# How to Secure Akamai Cache Purge in a CI/CD Pipeline
 
 ## Background
 
-Akamai is a well-known tech company offering CDN services.  
-When using Akamai as CDN, frontend developers often need to purge cached static files so that deployments are immediately visible. For this we use Akamai’s *Invalidate by URL API* (or sometimes manually via the UI).
+Akamai is one of the largest CDN providers.  
+When used as a CDN, frontend developers often need cache purges so their deployments are immediately reflected in production. For that, Akamai provides the **Invalidate by URL** API (or you can purge manually via the UI).  
 
-Akamai’s API authentication is built around **EdgeGrid**. Normally, credentials downloaded from Akamai are stored in `~/.edgerc`. That works fine in local development.
+Akamai’s API authentication is built on **EdgeGrid**.  
+Normally, credentials are stored in a `~/.edgerc` file. This works fine for local development.
 
----
+## Problem
 
-## The Problem
+Things start to get tricky when you want to move these purge calls into a **CI/CD pipeline**.  
+Placing the `.edgerc` file in the pipeline runner OS introduces a **security risk** — we don’t want sensitive credentials stored directly on the build machine.  
 
-Everything works nicely until we try to make the purge API call part of a CI/CD pipeline.
-
-- Putting the `.edgerc` file on the CI/CD runner’s OS (even in read-only mode) poses a security risk. We don’t want credentials stored in the build machine.  
-- Also, sending EdgeGrid credentials directly via `curl` headers is not supported as a secure method. A simple `curl` with inline credentials doesn’t meet security best practices.
+On the other hand, simply attaching EdgeGrid credentials as headers to a `curl` command is not supported. So, a basic curl call won’t solve it.
 
 ---
 
 ## Solution 1: Python Script + CI/CD Secrets
 
-One good solution: Use the EdgeGrid library in Python.  
-Create an authenticated session via EdgeGrid, then call purge safely. Credentials come via environment variables, which in GitHub Actions are stored as *secrets*.
+A safer approach is to use the **Akamai EdgeGrid Python library**.  
+We can create a session, inject credentials from CI/CD secrets, and run the purge securely.
 
-### Python Script Example
+Here’s a working Python example:
 
 ```python
-#!/usr/bin/env python3
 import os
 import json
 import requests
 from akamai.edgegrid import EdgeGridAuth
 
 def purge_cache(access_token, client_token, client_secret, purge_urls):
-    print("Starting cache purge...")
-
-    baseurl = "https://example.luna.akamaiapis.net"  # update with your AKAMAI base URL
+    baseurl = "https://example.luna.akamaiapis.net"  # anonymized Akamai host
     session = requests.Session()
     session.auth = EdgeGridAuth(
         client_token=client_token,
@@ -57,13 +67,12 @@ def purge_cache(access_token, client_token, client_secret, purge_urls):
     }
 
     response = session.post(url, json=payload, headers=headers)
-    print(f"Response status: {response.status_code}")
-    print(f"Response body: {response.json()}")
+    print(f"Purge Response: {response.status_code} - {response.json()}")
 
     if response.status_code in [200, 201]:
         print("✅ Cache purge successful!")
     else:
-        print("❌ Cache purge failed!")
+        print("❌ Cache purge failed.")
 
 if __name__ == "__main__":
     purge_cache(
@@ -74,31 +83,19 @@ if __name__ == "__main__":
     )
 ````
 
-In GitHub Actions workflow:
-
-```yaml
-- name: Purge Akamai Cache
-  env:
-    AKAMAI_ACCESS_TOKEN: ${{ secrets.AKAMAI_ACCESS_TOKEN }}
-    AKAMAI_CLIENT_TOKEN: ${{ secrets.AKAMAI_CLIENT_TOKEN }}
-    AKAMAI_CLIENT_SECRET: ${{ secrets.AKAMAI_CLIENT_SECRET }}
-    PURGE_URLS: "https://your-app.com/index.js,https://your-app.com/index.css"
-  run: python ./purge.py
-```
+In GitHub Actions (or any CI/CD system), credentials are provided via **secrets**, not via files.
 
 ---
 
-## Solution 2: Cloud-Native Approach (Lambda + API Gateway)
+## Solution 2: Cloud-Native with AWS Lambda + API Gateway
 
-Alternatively, use a cloud native model:
+Another option is to push the logic into the cloud:
 
-![Architecture Diagram](/assets/img/github-aws-akamai.webp)
+* Write a **Lambda function** that handles Akamai purge calls with EdgeGrid.
+* Expose it via **API Gateway**.
+* The CI/CD pipeline only calls the API Gateway endpoint.
 
-1. Write an AWS Lambda function that does the purge with EdgeGrid.
-2. Expose the function through API Gateway.
-3. CI/CD pipeline only calls the API Gateway endpoint.
-
-This way credentials live in the Lambda environment and are never exposed or stored on the pipeline runner.
+In this way, credentials are managed inside Lambda, never exposed to the pipeline.
 
 Example Lambda code (`lambda_function.py`):
 
@@ -222,24 +219,21 @@ resource "aws_lambda_permission" "api_gw" {
   principal     = "apigateway.amazonaws.com"
 }
 ```
----
-
-## Additional Resources
-
-* Akamai EdgeGrid official documentation: [Akamai EdgeGrid — Tech Docs](https://techdocs.akamai.com/developer/docs/edgegrid) ([TechDocs][1])
-* Akamai EdgeGrid for Python (GitHub repository): [AkamaiOPEN-edgegrid-python](https://github.com/akamai/AkamaiOPEN-edgegrid-python) ([GitHub][2])
 
 ---
 
-## Conclusion
+## Diagram
 
-* If you want a quick, secure setup: use the **Python script + CI/CD secrets** method.
-* If you want a more scalable, safer architecture: go with **Lambda + API Gateway**.
+Here’s a placeholder diagram for Solution 2:
 
-Both keep your secrets safe and allow cache purging to be automated after every deployment.
+![Cloud-Native Cache Purge Diagram](/assets/img/myimage.webp)
+
+---
+
+## References
+
+* [Akamai EdgeGrid Authentication Overview](https://techdocs.akamai.com/developer/docs/authenticate-with-edgegrid)
 
 ```
-```
 
-[1]: https://techdocs.akamai.com/developer/docs/edgegrid "EdgeGrid"
-[2]: https://github.com/akamai/AkamaiOPEN-edgegrid-python "akamai/AkamaiOPEN-edgegrid-python"
+---
