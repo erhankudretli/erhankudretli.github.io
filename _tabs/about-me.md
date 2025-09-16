@@ -64,7 +64,7 @@ Adaptable and collaborative team player, comfortable working in fast-paced, rapi
 ---
 
 ### IT Support Engineer — *Prime Medical, Istanbul*  
-*08/2016 – 05/2018*  
+*08/2016 – 05/2019*  
 - Provided technical support for hardware, software, and network issues.  
 - Managed installations, upgrades, and configurations on Windows environments.  
 - Installed and maintained networking equipment (routers, switches, cabling), ensuring secure and reliable connectivity.  
