@@ -19,9 +19,9 @@ Après avoir garé notre voiture près du centre-ville — soit au parking de Ma
    ![Villa Julia et passage du lac](assets/img/thoune/passage.jpeg)  
 
 3. De l’autre côté du pont, vous pouvez marcher aussi longtemps que vos forces le permettent, dans un paysage où les montagnes, l’eau et le ciel se rejoignent à l’horizon. Selon la saison, vous pourrez acheter une glace dans les kiosques des restaurants qui descendent jusqu’au chemin de promenade, et continuer votre balade.  
-   ![Chemin de randonnée et vue sur le lac](assets/img/randonne.jpeg)  
+   ![Chemin de randonnée et vue sur le lac](assets/img/thoune/randonne.jpeg)  
 
-4. Si vous avez assez de temps, vous pouvez faire un tour en bateau sur le lac de Thoune. Vous allez adorer ! Vous pouvez même descendre à l’arrêt de Spiez et marcher environ 45 minutes jusqu’à [Faulensee](https://www.schweizmobil.ch/en/hiking-in-switzerland/routes/route-0307.html), qui est le prochain arrêt du bateau. Vous ne le regretterez pas. Faulensee ressemble à un petit village de bord de lac : installez-vous dans un café au bord de l’eau, dégustez un café ou une limonade, puis reprenez le bateau suivant pour continuer votre tour.  
+4. Si vous avez assez de temps, vous pouvez faire un tour en bateau sur le lac de Thoune. Vous allez adorer ! Vous pouvez même descendre à l’arrêt de Spiez et marcher environ 45 minutes jusqu’à [Faulensee](https://www.spiez.com/en/activities/on-land/hiking/lakeside-path), qui est le prochain arrêt du bateau. Vous ne le regretterez pas. Faulensee ressemble à un petit village de bord de lac : installez-vous dans un café au bord de l’eau, dégustez un café ou une limonade, puis reprenez le bateau suivant pour continuer votre tour.  
 
 ---
 
