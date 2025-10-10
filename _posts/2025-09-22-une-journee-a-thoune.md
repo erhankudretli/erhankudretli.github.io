@@ -2,8 +2,8 @@
 layout: post
 title: "Une journée à Thoune"
 date: 2025-09-22 10:00:00 +0200
-categories: [suisse, voyage, thoune,francais]
-tags: [thoune, suisse, voyage, lac, randonnée]
+categories: ["Life"]
+tags: [thoune, suisse, voyage, lac, randonnée,francais]
 image: assets/img/thoune/thun-cover.jpeg
 ---
 
