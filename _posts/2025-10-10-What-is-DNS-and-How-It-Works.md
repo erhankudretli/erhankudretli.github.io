@@ -38,7 +38,7 @@ When we try to visit a website, the process works like this:
 
 To better visualize this process, here’s a simple diagram showing how a DNS query travels through each step:
 
-![DNS Resolution Diagram](/assets/images/internet/dns-process.png){: .center-image }
+![DNS Resolution Diagram](/assets/img/internet/dns-process.png){: .center-image }
 
 *(Image: DNS query flow — from browser cache to root, TLD, and authoritative servers.)*
 
