@@ -59,6 +59,3 @@ DNS is one of the **key building blocks** of the internet.
 It turns names into numbers, making it easy for people to access websites without remembering complex IP addresses.
 
 ---
-
-*Category:* [Core Concepts](/core-concepts)  
-*Tags:* DNS, Networking, Internet Basics
