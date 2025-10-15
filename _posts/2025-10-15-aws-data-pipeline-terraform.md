@@ -14,7 +14,7 @@ a file lands in an **S3 bucket**, a **Lambda** function processes it, and the re
 Everything was expected to be defined using **Terraform** so that it could be easily cloned or extended later.  
 I completed the required task in a modular way — but I wanted to go a bit further. 🙂  
 
-  ![Here’s the basic diagram of the setup:](assets/img/aws-data/diagram.png)
+  ![Here’s the basic diagram of the setup:](assets/img/aws-data/diagram.jpg)
 
 
 ---
