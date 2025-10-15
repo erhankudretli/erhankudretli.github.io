@@ -4,7 +4,7 @@ date: 2025-10-15
 categories: [DevOps]
 tags: [terraform, aws, lambda, cicd, security, best-practices]
 description: "How I approached a simple AWS data pipeline challenge in a Cloud Engineer interview using Terraform modules, security best practices, and CI/CD automation."
-image: /assets/img/aws-data/view.jpg
+image: /assets/img/aws-data/view.jpeg
 ---
 
 A few days ago, during a **Cloud Engineer** interview process, I was asked to build a **simple data pipeline using Terraform**.  
@@ -14,8 +14,8 @@ a file lands in an **S3 bucket**, a **Lambda** function processes it, and the re
 Everything was expected to be defined using **Terraform** so that it could be easily cloned or extended later.  
 I completed the required task in a modular way — but I wanted to go a bit further. 🙂  
 
-Here’s the basic diagram of the setup:  
-`(/assets/img/aws-data/diagram.png){: .center-image }`
+  ![Here’s the basic diagram of the setup:](assets/img/aws-data/diagram.png)
+
 
 ---
 
